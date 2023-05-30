@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\UserData;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -13,15 +14,12 @@ class UserDataMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $userData;
-
     /**
      * Create a new message instance.
      */
-    public function __construct($userData)
-    {
-        $this->userData = $userData;
-    }
+    public function __construct(
+        public UserData $userData,
+    ) {}
 
     /**
      * Get the message envelope.
@@ -39,7 +37,7 @@ class UserDataMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.welcome',
+            view: 'mail',
         );
     }
 
